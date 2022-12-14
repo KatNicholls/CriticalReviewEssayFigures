@@ -55,14 +55,15 @@ mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
            addLegend = TRUE, legendVals= c(1,2,3,4), legendPos = "left", legendTitle = "Distribution Extent",
            lwd = 0.5, lwdSymbols = 1)
 
-#THIS GETS YEAR NEED TO MAKE A COLUMN IN THE PLOT
+#ADD YEAR TO PLOT
 text(plot$Longitude, plot$Latitude, plot$year, pos = 3)
 
-#CAN ADD WRITING TO BOTTOM
+#ADD REFERENCES AT BOTTOM
 mtext("Source [Cabi and Coordinate google.... ]",side=1,line=-1)
 
 
 #points(plotcities$long, plotcities$lat, pch =  25, col = "gold1", bg= "gold3")
-#STILL NEED TO EXPLAIN DISTRIBUTION EXTENT... and add year of entry???
+
+#STILL NEED TO EXPLAIN DISTRIBUTION EXTENT... 
 
 
