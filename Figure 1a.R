@@ -51,7 +51,7 @@ do.call(addMapLegend, c(mapParams, legendLabels="all", labelFontSize=0.9, legend
 
 
 
-#Adding latitude lines
-#abline(h=c(-42,42),lty=2, lwd=2,col='black')
+#Adding latitude lines - need to figure out how with the change in borders - would also need to label lines
+#abline(h=c(-40,40),lty=2, lwd=2,col='black')
 
 
