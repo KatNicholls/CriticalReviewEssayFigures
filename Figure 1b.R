@@ -1,4 +1,4 @@
-# Figure for Spread of Bacteria and vector Globally
+# Figure for Spread of Bacteria Globally
 library(dplyr)
 library(rworldmap)
 library(countrycode)
