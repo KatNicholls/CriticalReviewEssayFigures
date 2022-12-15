@@ -14,7 +14,6 @@ Long_Lat <- read.csv('LONGS AND LATS.csv')
 
 #NEED TO TRANSFORM DATA INTO SOMETHING THAT I CAN MAP -> LIKELY BUBBLE MAP
 plot <- data.frame(country=DATA$Continent.Country.Region, Distribution=DATA$Distribution, Bacterium=DATA$Notes, year= DATA$First.Reported)
-plot$country <- gsub("- ","", plot$country)
 plot <- plot %>% arrange(plot, plot$country)
 
 #Making Size Scale
