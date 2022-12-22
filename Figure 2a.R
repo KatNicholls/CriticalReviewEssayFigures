@@ -57,12 +57,6 @@ mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
 #ADD YEAR TO PLOT
 text(plot$Longitude, plot$Latitude, plot$year, pos = 3)
 
-#ADD REFERENCES AT BOTTOM
-mtext("Source [Cabi and Coordinate google.... ]",side=1,line=-1)
-
-
-#points(plotcities$long, plotcities$lat, pch =  25, col = "gold1", bg= "gold3")
-
 #STILL NEED TO EXPLAIN DISTRIBUTION EXTENT... 
 
 
