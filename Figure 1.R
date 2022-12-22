@@ -44,14 +44,15 @@ colourPalette <- RColorBrewer::brewer.pal(9,'YlOrRd')
 #now mapping
 
 mapDevice("x11")
-par(mai=c(1,1,1,1),xaxs="i",yaxs="i")
-mapParams <- mapCountryData(MAP, nameColumnToPlot = "x", catMethod=scale, mapTitle= "Figure 1a) Global Citrus Production by Country in 2020 (data from FAOSTAT)", colourPalette=colourPalette, oceanCol="lightblue", missingCountryCol="white", addLegend = FALSE)
+par(mar=c(1,1,1,1),xaxs="i",yaxs="i")
+mapParams <- mapCountryData(MAP, nameColumnToPlot = "x", catMethod=scale, mapTitle= "", colourPalette=colourPalette, oceanCol="lightblue", missingCountryCol="white", addLegend = FALSE)
 do.call(addMapLegend, c(mapParams, legendLabels="all", labelFontSize=0.9, legendShrink=0.7, legendMar = 55,
                         horizontal=FALSE, legendArgs=mtext("Production in tonnes", side=2, line=0, outer=FALSE ), tcl = -0.5, digits=2, legendIntervals="page"))
 
+mtext("[FAOSTAT]",side=1,line=-1)
 
-
-#Adding latitude lines - need to figure out how with the change in borders - would also need to label lines
-#abline(h=c(-40,40),lty=2, lwd=2,col='black')
-
+#Adding latitude lines
+abline(h=c(-40,40),lty=2, lwd=2,col='black')
+text(160,42.5,"40°N")
+text(160,-37.5,"40°S")
 
