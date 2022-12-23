@@ -1,5 +1,4 @@
 #Figure for spread of VECTOR GLOBALLY
-# Figure for Spread of Bacteria Globally
 library(dplyr)
 library(rworldmap)
 library(countrycode)
@@ -15,11 +14,11 @@ Long_Lat <- read.csv('LONGS AND LATS.csv')
 
 #NEED TO TRANSFORM DATA INTO SOMETHING THAT I CAN MAP -> LIKELY BUBBLE MAP
 plot <- data.frame(country=DATA$Continent.Country.Region, Distribution=DATA$Distribution, PSYLLID=DATA$PSYLLID, year= DATA$First.Reported)
-plot <- plot %>% arrange(plot, plot$country)
 plot$country <- gsub("- ","",plot$country)
 plot$country <- gsub("TimorLeste","Timor-Leste",plot$country)
 plot$country <- gsub(", Republic of the", " [Republic]", plot$country)
 plot$country <- gsub(", Democratic Republic of the", " [DRC]", plot$country)
+plot <- plot %>% arrange(plot, plot$country)
 
 #Making Size Scale
 plot$Distribution <- gsub("Absent, Unconfirmed presence records","0",plot$Distribution)
@@ -28,9 +27,9 @@ plot$Distribution <- gsub("Absent, Invalid presence records","0",plot$Distributi
 plot$Distribution <- gsub("Absent, Intercepted only","0",plot$Distribution)
 plot$Distribution <- gsub("Absent, Confirmed absent by survey","0",plot$Distribution)
 plot$Distribution <- gsub("Absent","0",plot$Distribution)
-plot$Distribution <- gsub("Present, Few occurrences","4",plot$Distribution)
-plot$Distribution <- gsub("Present, Localized","3",plot$Distribution)
-plot$Distribution <- gsub("Present, Widespread","5",plot$Distribution)
+plot$Distribution <- gsub("Present, Few occurrences","2",plot$Distribution)
+plot$Distribution <- gsub("Present, Localized","2",plot$Distribution)
+plot$Distribution <- gsub("Present, Widespread","3",plot$Distribution)
 plot$Distribution <- gsub("Present, Transient under eradication","1",plot$Distribution)
 plot$Distribution <- gsub("Present","2",plot$Distribution)
 plot$Distribution <- as.numeric(plot$Distribution)
@@ -62,7 +61,7 @@ for(i in 1:nrow(plot)){
 }
 
 #Colour - maybe change these were random
-colourPalette <- c("#288BA8","#E83845")
+colourPalette <- c("#1887ab","#704776", "#d70e17")
 
 #Now mapping
 mapDevice("x11")
@@ -70,22 +69,21 @@ par(mar=c(1,1,1,1), xaxs="i",yaxs="i")
 mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
            nameZSize = "Distribution" , nameZColour = "PSYLLID", 
            fill = TRUE, pch = 21, symbolSize = 0.75, 
-           main = mtext("Figure 2b) Global Distribution of Citrus Psyllids", side=3, line=-2,outer=TRUE), numCats = 5,
+           main = "", numCats = 5,
            catMethod = "categorical", colourPalette = colourPalette, mapRegion = "world", 
            borderCol = "grey", oceanCol = 'lightblue',landCol = 'wheat', 
-           addLegend = TRUE, legendVals= c(0,1,2,3,4,5), legendPos = "bottomright", legendTitle = "Distribution Extent", plotZeroVals = TRUE,
+           addLegend = TRUE, legendVals= c(1,2,3), legendPos = "topleft", legendTitle = "Distribution Extent", plotZeroVals = FALSE,
            lwd = 0.5, lwdSymbols = 1)
 
 #ADD YEAR TO PLOT
-text(plot$Longitude, plot$Latitude, plot$year, pos = 3)
+text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex=0.6)
 
 #ADD REFERENCES AT BOTTOM
 mtext("Source [Cabi and Coordinate google.... ]",side=1,line=-1)
 
-
-#points(plotcities$long, plotcities$lat, pch =  25, col = "gold1", bg= "gold3")
-
-#STILL NEED TO EXPLAIN DISTRIBUTION EXTENT...  add more first introduced as well..
-#also doesn't account for dots on top of each other??? how to get next too.... also isn't plotting crosses like asked - do we want them?
+#LABEL DISTRIBUTION EXTENT
+text(-138,80.5, "- Present, Transient under eradication")
+text(-157,77, "- Present")
+text(-148,73.5, "- Present, Widespread")
 
 
