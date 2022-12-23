@@ -6,10 +6,10 @@ library(RColorBrewer)
 
 setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
 
-#Data FROM CABI
+#Data FROM CABI / EPPO
 DATA <- read.csv('PSYLLID SPREAD.csv')
 
-#Coordinates collated from multiple data sources - to make sure have all countries/provinces/states that is included in the CABI dataset
+#Coordinates collated from multiple data sources - to make sure have all countries/provinces/states that is included in Dataset
 Long_Lat <- read.csv('LONGS AND LATS.csv')
 
 #NEED TO TRANSFORM DATA INTO SOMETHING THAT I CAN MAP -> LIKELY BUBBLE MAP
@@ -79,7 +79,7 @@ mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
 text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex=0.6)
 
 #ADD REFERENCES AT BOTTOM
-mtext("Source [Cabi and Coordinate google.... ]",side=1,line=-1)
+mtext("[CABI/EPPO]",side=1,line=-1)
 
 #LABEL DISTRIBUTION EXTENT
 text(-138,80.5, "- Present, Transient under eradication")
