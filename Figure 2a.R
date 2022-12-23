@@ -6,10 +6,10 @@ library(RColorBrewer)
 
 setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
 
-#Data FROM CABI
+#Data FROM CABI/EPPO
 DATA <- read.csv('BACTERIA SPREAD.csv')
 
-#Coordinates collated from multiple data sources - to make sure have all countries/provinces/states that is included in the CABI dataset
+#Coordinates collated from multiple data sources - to make sure have all countries/provinces/states that is included in dataset
 Long_Lat <- read.csv('LONGS AND LATS.csv')
 
 #NEED TO TRANSFORM DATA INTO SOMETHING THAT I CAN MAP -> LIKELY BUBBLE MAP
@@ -63,5 +63,7 @@ text(-157,80.5, "- Present")
 text(-137.5,77, "- Present, Localised/Few Occurrences")
 text(-148,73.5, "- Present, Widespread")
 
+#ADD REFERENCES AT BOTTOM
+mtext("[CABI/EPPO]",side=1,line=-1)
 
 
