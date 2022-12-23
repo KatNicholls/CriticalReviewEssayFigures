@@ -18,8 +18,8 @@ plot <- plot %>% arrange(plot, plot$country)
 
 #Making Size Scale
 plot$Distribution <- gsub("Present, Localized","2",plot$Distribution)
-plot$Distribution <- gsub("Present, Few occurrences","3",plot$Distribution)
-plot$Distribution <- gsub("Present, Widespread","4",plot$Distribution)
+plot$Distribution <- gsub("Present, Few occurrences","2",plot$Distribution)
+plot$Distribution <- gsub("Present, Widespread","3",plot$Distribution)
 plot$Distribution <- gsub("Present","1",plot$Distribution)
 plot$Distribution <- as.numeric(plot$Distribution)
 
@@ -40,23 +40,28 @@ Needed_Coordinates <- Needed_Coordinates %>% arrange(Needed_Coordinates, Place.N
 plot <- plot %>% mutate(plot, Latitude = Needed_Coordinates$Latitude) %>% mutate(plot, Longitude = Needed_Coordinates$Longitude) 
 
 #Colour
-colourPalette <- RColorBrewer::brewer.pal(5,'YlOrRd')
+colourPalette <- RColorBrewer::brewer.pal(4,'PuRd')
+#colourPalette <- c("#FE2712","#FC600A", "#FB9902","#FCCC1A","#FEFE33")
 
 #Now mapping
-mapDevice("x11")
+#mapDevice("x11")
 par(mar=c(1,1,1,1), xaxs="i",yaxs="i")
 mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
            nameZSize = "Distribution" , nameZColour = "Bacterium", 
            fill = TRUE, pch = 21, symbolSize = 0.75, 
-           main = mtext("Figure 2a) Global Distribution of Ca. Liberibacter Species", side=3, line=-2,outer=TRUE), numCats = 5,
+           main = "", numCats = 5,
            catMethod = "categorical", colourPalette = colourPalette, mapRegion = "world", 
-           borderCol = "grey", oceanCol = 'lightblue',landCol = 'wheat', 
-           addLegend = TRUE, legendVals= c(1,2,3,4), legendPos = "left", legendTitle = "Distribution Extent",
+           borderCol = "grey", oceanCol = "lightblue",landCol = 'wheat', 
+           addLegend = TRUE, legendVals= c(1,2,3), legendPos = "topleft", legendTitle = "Distribution Extent",
            lwd = 0.5, lwdSymbols = 1)
 
 #ADD YEAR TO PLOT
-text(plot$Longitude, plot$Latitude, plot$year, pos = 3)
+text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex = 0.6)
 
-#STILL NEED TO EXPLAIN DISTRIBUTION EXTENT... 
+#EXPLAIN DISTRIBUTION EXTENT
+text(-157,80.5, "- Present")
+text(-137.5,77, "- Present, Localised/Few Occurrences")
+text(-148,73.5, "- Present, Widespread")
+
 
 
