@@ -5,9 +5,16 @@ library(countrycode)
 library(RColorBrewer)
 
 setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
+#Figure for spread of VECTOR GLOBALLY
+library(dplyr)
+library(rworldmap)
+library(countrycode)
+library(RColorBrewer)
+
+setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
 
 #Data FROM CABI / EPPO
-DATA <- read.csv('PSYLLID SPREAD.csv')
+DATA <- read.csv('PSYLLID SPREAD ARROWS.csv')
 
 #Coordinates collated from multiple data sources - to make sure have all countries/provinces/states that is included in Dataset
 Long_Lat <- read.csv('LONGS AND LATS.csv')
@@ -64,7 +71,7 @@ for(i in 1:nrow(plot)){
 colourPalette <- c("#1887ab","#704776", "#d70e17")
 
 #Now mapping
-mapDevice("x11")
+#mapDevice("x11")
 par(mar=c(1,1,1,1), xaxs="i",yaxs="i")
 mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
            nameZSize = "Distribution" , nameZColour = "PSYLLID", 
@@ -76,7 +83,7 @@ mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
            lwd = 0.5, lwdSymbols = 1)
 
 #ADD YEAR TO PLOT
-text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex=0.6)
+text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex=0.7)
 
 #ADD REFERENCES AT BOTTOM
 mtext("[CABI/EPPO]",side=1,line=-1)
@@ -85,5 +92,24 @@ mtext("[CABI/EPPO]",side=1,line=-1)
 text(-138,80.5, "- Present, Transient under eradication")
 text(-157,77, "- Present")
 text(-148,73.5, "- Present, Widespread")
+
+#Arrows for some points
+Arrows <- read.csv("Arrows.csv")
+for (i in 1:nrow(Arrows)){
+  y1 = Arrows$Latitude[i]
+  x1 = Arrows$Longitude[i]
+  if(Arrows$Longitude[i]<0){
+    arrows((x1+10),(y1),x1,y1,length=0, angle=40)
+  text((x1+12),(y1),Arrows$First.Reported[i], cex=0.7)
+  }
+  else if(Arrows$Latitude[i]<26){
+    arrows((x1),(y1-7),x1,y1,length=0, angle=40)
+    text((x1),(y1-8),Arrows$First.Reported[i], cex=0.7)
+  }
+  else{
+    arrows((x1),(y1+8),x1,y1,length=0, angle=40)
+    text((x1),(y1+9),Arrows$First.Reported[i], cex=0.7)
+  }
+}
 
 
