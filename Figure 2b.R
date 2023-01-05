@@ -5,13 +5,6 @@ library(countrycode)
 library(RColorBrewer)
 
 setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
-#Figure for spread of VECTOR GLOBALLY
-library(dplyr)
-library(rworldmap)
-library(countrycode)
-library(RColorBrewer)
-
-setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
 
 #Data FROM CABI / EPPO
 DATA <- read.csv('PSYLLID SPREAD ARROWS.csv')
