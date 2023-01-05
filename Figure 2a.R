@@ -7,7 +7,7 @@ library(RColorBrewer)
 setwd('~/II/CRIT REVIEW ESSAY/FIGURE DATA')
 
 #Data FROM CABI/EPPO
-DATA <- read.csv('BACTERIA SPREAD.csv')
+DATA <- read.csv('BACTERIA SPREAD ARROWS.csv')
 
 #Coordinates collated from multiple data sources - to make sure have all countries/provinces/states that is included in dataset
 Long_Lat <- read.csv('LONGS AND LATS.csv')
@@ -29,8 +29,8 @@ Long_Lat$Place.Name <- gsub("\\, the USA","", Long_Lat$Place.Name)
 Long_Lat$Place.Name <- gsub("\\, the US","", Long_Lat$Place.Name)
 
 #Finding matches !!
-#Long_Lat$Place.Name[Long_Lat$Place.Name%in%plot$country]
-#plot$country[plot$country%in%Long_Lat$Place.Name]
+Long_Lat$Place.Name[!(Long_Lat$Place.Name%in%plot$country)]
+plot$country[!(plot$country%in%Long_Lat$Place.Name)]
 
 #Getting Matches and Reordering (both lists now althabetical)
 Needed_Coordinates <- Long_Lat %>% filter(Long_Lat$Place.Name%in%plot$country) 
@@ -56,7 +56,7 @@ mapBubbles(dF = plot, nameX = "Longitude", nameY = "Latitude",
            lwd = 0.5, lwdSymbols = 1)
 
 #ADD YEAR TO PLOT
-text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex = 0.6)
+text(plot$Longitude, plot$Latitude, plot$year, pos = 3, cex = 0.7)
 
 #EXPLAIN DISTRIBUTION EXTENT
 text(-157,80.5, "- Present")
@@ -66,4 +66,21 @@ text(-148,73.5, "- Present, Widespread")
 #ADD REFERENCES AT BOTTOM
 mtext("[CABI/EPPO]",side=1,line=-1)
 
-
+#Arrows for some points
+Arrows <- read.csv("B Arrows.csv")
+for (i in 1:nrow(Arrows)){
+  y1 = Arrows$Latitude[i]
+  x1 = Arrows$Longitude[i]
+  if(Arrows$Longitude[i]<0){
+    arrows((x1+10),(y1),x1,y1,length=0, angle=40)
+    text((x1+12),(y1),Arrows$First.Reported[i], cex=0.7)
+  }
+  else if(Arrows$Latitude[i]<26){
+    arrows((x1),(y1-7),x1,y1,length=0, angle=40)
+    text((x1),(y1-8),Arrows$First.Reported[i], cex=0.7)
+  }
+  else{
+    arrows((x1),(y1+8),x1,y1,length=0, angle=40)
+    text((x1),(y1+9),Arrows$First.Reported[i], cex=0.7)
+  }
+}
